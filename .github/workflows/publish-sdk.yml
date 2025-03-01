@@ -16,7 +16,8 @@ jobs:
         working-directory: ./sdk
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -25,9 +26,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           scope: "@stockspro"
           always-auth: true
-
-      - name: Authenticate to npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -40,9 +38,10 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Publish to npm
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
-          pnpm publish --access public --no-git-checks
+      - name: Publish package
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_OTP: ${{ secrets.NPM_OTP }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          pnpm publish --access public --otp=${{ secrets.NPM_OTP }}

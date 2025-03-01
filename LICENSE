@@ -1,21 +1,18 @@
-MIT License
+Revenue-Share License v1.0
+Copyright (c) [Year] [Your Name]
+This software is provided free of charge for non-commercial use. If you generate revenue from this software, you must comply with the following terms.
 
-Copyright (c) 2025 Ofek Gabay
+1. Free for Non-Commercial Use
+   Individuals and non-commercial projects may use, modify, and distribute this software freely.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+2. Commercial Use Requires Payment
+   If you use this software in a commercial project or any revenue-generating activity, you agree to:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Pay 2% of gross revenue derived from the software.
+Contact the author at ofek.gabay.he@gmail.com to arrange licensing.
+Clearly credit the original author in any public-facing documentation or software interfaces. 3. Open Source Contributions
+You are encouraged (but not required) to contribute improvements back to the project.
+Contributions remain under this license. 4. No Warranty
+This software is provided "as-is" without any warranty. The author is not responsible for any damages arising from its use.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+By using this software, you agree to these terms. If you do not agree, do not use this software.

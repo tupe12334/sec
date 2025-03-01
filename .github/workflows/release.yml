@@ -30,9 +30,11 @@ jobs:
         uses: pnpm/action-setup@v3
 
       - name: Install dependencies
+        working-directory: sdk
         run: pnpm install --frozen-lockfile
 
       - name: Release
+        working-directory: sdk
         run: npx release-it --verbose
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

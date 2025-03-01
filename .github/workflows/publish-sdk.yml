@@ -26,6 +26,9 @@ jobs:
           scope: "@stockspro"
           always-auth: true
 
+      - name: Authenticate to npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:

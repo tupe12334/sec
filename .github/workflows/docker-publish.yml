@@ -23,6 +23,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Read package.json version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./server/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -41,6 +47,7 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=pr
+            type=raw,value=${{ steps.package-version.outputs.version }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=sha

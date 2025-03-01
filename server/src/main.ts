@@ -1,8 +1,9 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFile } from 'fs/promises';
 import { patchNestJsSwagger } from 'nestjs-zod';
-import * as path from 'path';
+import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -19,8 +20,8 @@ async function bootstrap() {
   const document = documentFactory();
 
   // Save the Swagger OpenAPI schema to a file
-  const outputPath = path.join(__dirname, '..', 'swagger.json');
-  console.log(`Writing OpenAPI schema to ${outputPath}`);
+  const outputPath = join(__dirname, '..', 'swagger.json');
+  Logger.log(`Writing OpenAPI schema to ${outputPath}`, 'Swagger');
 
   await writeFile(outputPath, JSON.stringify(document, null, 2));
 

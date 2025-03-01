@@ -1,0 +1,10 @@
+{
+  "packageFiles": ["sdk/package.json"],
+  "plugins": {
+    "release-it-pnpm": {}
+  },
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tagName": "sdk-v${version}"
+  }
+}

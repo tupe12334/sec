@@ -16,7 +16,7 @@
     "postgenerate": "npm run build",
     "preversion": "npm run build",
     "publish": "release-it",
-    "publish:cicd": "release-it --ci",
+    "publish:cicd": "release-it --ci"
   },
   "keywords": [],
   "author": "",

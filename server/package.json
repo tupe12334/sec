@@ -22,6 +22,7 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/schedule": "^5.0.1",
     "@nestjs/swagger": "^11.0.4",
     "axios": "^1.7.9",
     "nestjs-paginate": "^11.0.1",

@@ -1,0 +1,828 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/submissions/{cik}": {
+      "get": {
+        "operationId": "SubmissionsController_findUnique",
+        "parameters": [
+          {
+            "name": "cik",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Submissions"
+        ]
+      }
+    },
+    "/companyfacts/{cik}": {
+      "get": {
+        "operationId": "CompanyfactsController_findUnique",
+        "parameters": [
+          {
+            "name": "cik",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyfactsDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Companyfacts"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Cats example",
+    "description": "The cats API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "cats",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "SubmissionDto": {
+        "type": "object",
+        "properties": {
+          "cik": {
+            "type": "string"
+          },
+          "sic": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tickers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exchanges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ein": {
+            "description": "Employer Identification Number",
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "fiscalYearEnd": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cik",
+          "sic",
+          "name",
+          "tickers",
+          "exchanges",
+          "ein",
+          "fiscalYearEnd"
+        ]
+      },
+      "CompanyfactsDto": {
+        "type": "object",
+        "properties": {
+          "cik": {
+            "type": "number"
+          },
+          "entityName": {
+            "type": "string"
+          },
+          "facts": {
+            "type": "object",
+            "properties": {
+              "dei": {
+                "type": "object",
+                "properties": {
+                  "EntityCommonStockSharesOutstanding": {
+                    "description": "Indicate number of shares or other units outstanding of each of registrant's classes of capital or common stock or other ownership interests, if and as stated on cover of related periodic report. Where multiple classes or units exist define each class/interest by adding class of stock items such as Common Class A [Member], Common Class B [Member] or Partnership Interest [Member] onto the Instrument [Domain] of the Entity Listings, Instrument.",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "shares": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "shares"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "description",
+                      "units"
+                    ]
+                  },
+                  "EntityPublicFloat": {
+                    "description": "The aggregate market value of the voting and non-voting common equity held by non-affiliates computed by reference to the price at which the common equity was last sold, or the average bid and asked price of such common equity, as of the last business day of the registrant's most recently completed second fiscal quarter.",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  }
+                },
+                "required": [
+                  "EntityCommonStockSharesOutstanding",
+                  "EntityPublicFloat"
+                ]
+              },
+              "us-gaap": {
+                "type": "object",
+                "properties": {
+                  "AccountsAndNotesReceivableNet": {
+                    "description": "Amount, after allowance for credit loss, of accounts and financing receivable. Includes, but is not limited to, notes and loan receivable.",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  },
+                  "AccountsPayableCurrent": {
+                    "description": "Carrying value as of the balance sheet date of liabilities incurred (and for which invoices have typically been received) and payable to vendors for goods and services received that are used in an entity's business. Used to reflect the current portion of the liabilities (due within one year or within the normal operating cycle if longer).",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  },
+                  "AccountsReceivableGrossCurrent": {
+                    "description": "Amount, before allowance for credit loss, of right to consideration from customer for product sold and service rendered in normal course of business, classified as current.",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  },
+                  "AccountsReceivableNetCurrent": {
+                    "description": "Amount, after allowance for credit loss, of right to consideration from customer for product sold and service rendered in normal course of business, classified as current.",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  },
+                  "AccruedLiabilitiesCurrent": {
+                    "description": "Carrying value as of the balance sheet date of obligations incurred and payable, pertaining to costs that are statutory in nature, are incurred on contractual obligations, or accumulate over time and for which invoices have not yet been received or will not be rendered. Examples include taxes, interest, rent and utilities. Used to reflect the current portion of the liabilities (due within one year or within the normal operating cycle if longer).",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  },
+                  "AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment": {
+                    "description": "Amount of accumulated depreciation, depletion and amortization for physical assets used in the normal conduct of business to produce goods and services.",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  },
+                  "AccumulatedOtherComprehensiveIncomeLossNetOfTax": {
+                    "description": "Accumulated change in equity from transactions and other events and circumstances from non-owner sources, net of tax effect, at period end. Excludes Net Income (Loss), and accumulated changes in equity from transactions resulting from investments by owners and distributions to owners. Includes foreign currency translation items, certain pension adjustments, unrealized gains and losses on certain investments in debt and equity securities, other than temporary impairment (OTTI) losses related to factors other than credit losses on available-for-sale and held-to-maturity debt securities that an entity does not intend to sell and it is not more likely than not that the entity will be required to sell before recovery of the amortized cost basis, as well as changes in the fair value of derivatives related to the effective portion of a designated cash flow hedge.",
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "units": {
+                        "type": "object",
+                        "properties": {
+                          "USD": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "end": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "val": {
+                                  "type": "number"
+                                },
+                                "accn": {
+                                  "type": "string"
+                                },
+                                "fy": {
+                                  "description": "Fiscal year",
+                                  "type": "number"
+                                },
+                                "fp": {
+                                  "type": "string",
+                                  "enum": [
+                                    "Q1",
+                                    "Q2",
+                                    "Q3",
+                                    "Q4"
+                                  ]
+                                },
+                                "form": {
+                                  "type": "string"
+                                },
+                                "filed": {
+                                  "description": "YYYY-MM-DD",
+                                  "type": "string"
+                                },
+                                "frame": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "val",
+                                "accn",
+                                "fy",
+                                "fp",
+                                "form",
+                                "filed",
+                                "frame"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "USD"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "units"
+                    ]
+                  }
+                },
+                "required": [
+                  "AccountsAndNotesReceivableNet",
+                  "AccountsPayableCurrent",
+                  "AccountsReceivableGrossCurrent",
+                  "AccountsReceivableNetCurrent",
+                  "AccruedLiabilitiesCurrent",
+                  "AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment",
+                  "AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+                ]
+              }
+            },
+            "required": [
+              "dei",
+              "us-gaap"
+            ]
+          }
+        },
+        "required": [
+          "cik",
+          "entityName",
+          "facts"
+        ]
+      }
+    }
+  }
+}

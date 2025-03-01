@@ -1,36 +1,6 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/submissions/{cik}": {
-      "get": {
-        "operationId": "SubmissionsController_findUnique",
-        "parameters": [
-          {
-            "name": "cik",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubmissionDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Submissions"
-        ]
-      }
-    },
     "/companyfacts/{cik}": {
       "get": {
         "operationId": "CompanyfactsController_findUnique",
@@ -60,69 +30,48 @@
           "Companyfacts"
         ]
       }
+    },
+    "/submissions/{cik}": {
+      "get": {
+        "operationId": "SubmissionsController_findUnique",
+        "parameters": [
+          {
+            "name": "cik",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Submissions"
+        ]
+      }
     }
   },
   "info": {
-    "title": "Cats example",
-    "description": "The cats API description",
-    "version": "1.0",
+    "title": "Security and exchange commission's API",
+    "description": "This is an API to run a local cache of the Security and exchange commission's API to prevent rate limiting and to provide a more stable and reliable API for the users",
+    "version": "0.1.0",
     "contact": {}
   },
-  "tags": [
-    {
-      "name": "cats",
-      "description": ""
-    }
-  ],
+  "tags": [],
   "servers": [],
   "components": {
     "schemas": {
-      "SubmissionDto": {
-        "type": "object",
-        "properties": {
-          "cik": {
-            "type": "string"
-          },
-          "sic": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "tickers": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "exchanges": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "ein": {
-            "description": "Employer Identification Number",
-            "type": "string"
-          },
-          "website": {
-            "type": "string",
-            "format": "uri"
-          },
-          "fiscalYearEnd": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "cik",
-          "sic",
-          "name",
-          "tickers",
-          "exchanges",
-          "ein",
-          "fiscalYearEnd"
-        ]
-      },
       "CompanyfactsDto": {
         "type": "object",
         "properties": {
@@ -821,6 +770,52 @@
           "cik",
           "entityName",
           "facts"
+        ]
+      },
+      "SubmissionDto": {
+        "type": "object",
+        "properties": {
+          "cik": {
+            "type": "string"
+          },
+          "sic": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tickers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exchanges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ein": {
+            "description": "Employer Identification Number",
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "fiscalYearEnd": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cik",
+          "sic",
+          "name",
+          "tickers",
+          "exchanges",
+          "ein",
+          "fiscalYearEnd"
         ]
       }
     }

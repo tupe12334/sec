@@ -1,9 +1,13 @@
 {
   "name": "@stockspro/sec-sdk",
   "version": "0.0.1",
-  "description": "",
+  "description": "SDK for SEC data access",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",

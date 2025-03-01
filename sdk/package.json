@@ -15,7 +15,8 @@
     "generate": "openapi-generator-cli generate -i ../server/swagger.json -g typescript-axios -o ./src",
     "postgenerate": "npm run build",
     "preversion": "npm run build",
-    "publish": "release-it"
+    "publish": "release-it",
+    "publish:cicd": "release-it --ci",
   },
   "keywords": [],
   "author": "",

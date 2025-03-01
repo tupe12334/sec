@@ -22,11 +22,16 @@ jobs:
         with:
           node-version: "18"
           registry-url: "https://registry.npmjs.org"
+          scope: "@stockspro" # Replace with your npm scope if using one, or remove if not using scoped packages
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 10.4.1
+
+      - name: Setup npm authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
 
       - name: Install dependencies
         run: pnpm install

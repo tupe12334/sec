@@ -19,7 +19,7 @@ async function bootstrap() {
   const document = documentFactory();
 
   // Save the Swagger OpenAPI schema to a file
-  const outputPath = path.join(__dirname, '..', 'swagger-spec.json');
+  const outputPath = path.join(__dirname, '..', 'swagger.json');
   console.log(`Writing OpenAPI schema to ${outputPath}`);
 
   await writeFile(outputPath, JSON.stringify(document, null, 2));

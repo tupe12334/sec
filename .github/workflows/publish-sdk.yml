@@ -44,4 +44,4 @@ jobs:
           NPM_OTP: ${{ secrets.NPM_OTP }}
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          pnpm publish --access public --otp=${{ secrets.NPM_OTP }}
+          pnpm publish --access public --otp=${{ secrets.NPM_OTP }} --no-git-checks

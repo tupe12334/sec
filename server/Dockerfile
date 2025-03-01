@@ -1,6 +1,9 @@
 FROM node:23.7.0-alpine
+LABEL maintainer="Ofek Gabay <ofek.gabay.he@gmail.com>"
+LABEL description="Dockerfile for the server"
 
 WORKDIR /usr/src/app
+
 
 # Copy package files first to leverage Docker cache
 COPY package.json pnpm-lock.yaml ./

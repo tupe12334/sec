@@ -1,6 +1,6 @@
 {
   "name": "@stockspro/sec-sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "SDK for SEC data access",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,7 +13,8 @@
     "build": "tsc",
     "prepare": "npm run build",
     "generate": "openapi-generator-cli generate -i ../server/swagger.json -g typescript-axios -o ./src",
-    "postgenerate": "npm run build"
+    "postgenerate": "npm run build",
+    "preversion": "npm run build"
   },
   "keywords": [],
   "author": "",

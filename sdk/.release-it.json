@@ -1,5 +1,4 @@
 {
-  "packageFiles": ["sdk/package.json"],
   "plugins": {
     "release-it-pnpm": {}
   },

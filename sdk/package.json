@@ -1,6 +1,6 @@
 {
   "name": "@stockspro/sec-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SDK for SEC data access",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -24,17 +24,12 @@ jobs:
           node-version: "18"
           registry-url: "https://registry.npmjs.org"
           scope: "@stockspro"
+          always-auth: true
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 10.4.1
-
-      - name: Configure npm
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install dependencies
         run: pnpm install
@@ -43,6 +38,8 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        run: pnpm publish --access public --no-git-checks
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+          pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

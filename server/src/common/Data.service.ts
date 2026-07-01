@@ -3,6 +3,33 @@ import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { RequestType } from 'src/types';
 
+// SEC's fair access policy caps automated traffic at 10 requests/second
+// (https://www.sec.gov/os/webmaster-faq#developers). Stay comfortably under
+// that by serializing outbound fetches with a minimum gap between them.
+const SEC_MIN_REQUEST_INTERVAL_MS = 150;
+let secRequestQueue: Promise<void> = Promise.resolve();
+
+async function rateLimitedFetch(secUrl: string) {
+  let release: () => void;
+  const wait = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+
+  const previous = secRequestQueue;
+  secRequestQueue = secRequestQueue.then(() => wait);
+
+  await previous;
+  try {
+    return await axios.get(secUrl, {
+      headers: {
+        'User-Agent': 'MyExpressApp/1.0',
+      },
+    });
+  } finally {
+    setTimeout(() => release(), SEC_MIN_REQUEST_INTERVAL_MS);
+  }
+}
+
 export async function findUnique(dataType: RequestType, cik: string) {
   const fileName = `CIK${cik}.json`;
   const filePath = join(__dirname, '..', '..', 'data', dataType, fileName);
@@ -17,11 +44,7 @@ export async function findUnique(dataType: RequestType, cik: string) {
     const secUrl = `https://data.sec.gov/api/${dataType}/${fileName}`;
 
     try {
-      const response = await axios.get(secUrl, {
-        headers: {
-          'User-Agent': 'MyExpressApp/1.0',
-        },
-      });
+      const response = await rateLimitedFetch(secUrl);
       const data = response.data;
       await mkdir(dirname(filePath), { recursive: true });
       await writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');

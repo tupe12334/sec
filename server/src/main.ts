@@ -5,6 +5,7 @@ import { writeFile } from 'fs/promises';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { downloadBulkDataOnBoot } from './common/BulkData.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,5 +28,11 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
   await app.listen(3000);
+
+  // Seed the local cache from SEC's bulk data zips in the background so the
+  // (multi-GB) download doesn't delay the server from listening.
+  downloadBulkDataOnBoot().catch((err) =>
+    Logger.error('Bulk data download failed', err, 'BulkData'),
+  );
 }
 bootstrap();

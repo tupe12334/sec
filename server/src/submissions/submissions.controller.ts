@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
-import { findUnique } from 'src/common/Data.service';
 import { SubmissionDto } from './models';
+import { findUnique } from 'src/common/Data.service';
 import { CIKSchema } from 'src/types';
 
 @Controller('submissions')

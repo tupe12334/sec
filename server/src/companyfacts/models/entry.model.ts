@@ -1,5 +1,5 @@
-import { YearQuartersSchema } from 'src/common';
 import { z } from 'zod';
+import { YearQuartersSchema } from 'src/common';
 
 export const EntrySchema = z.object({
   end: z.string().describe('YYYY-MM-DD'),

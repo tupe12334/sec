@@ -7,7 +7,7 @@ export const CompanyfactsSchema = z.object({
   cik: z.number(),
   entityName: z.string(),
   facts: z.object({
-    dei: dei,
+    dei,
     'us-gaap': us_gaap,
   }),
 });

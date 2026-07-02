@@ -1,7 +1,7 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 import axios from 'axios';
-import { mkdir, readFile, writeFile } from 'fs/promises';
-import { dirname, join } from 'path';
-import { RequestType } from 'src/types';
+import type { RequestType } from 'src/types';
 
 // SEC's fair access policy caps automated traffic at 10 requests/second
 // (https://www.sec.gov/os/webmaster-faq#developers). Stay comfortably under
@@ -16,7 +16,7 @@ async function rateLimitedFetch(secUrl: string) {
   });
 
   const previous = secRequestQueue;
-  secRequestQueue = secRequestQueue.then(() => wait);
+  secRequestQueue = secRequestQueue.then(async () => wait);
 
   await previous;
   try {
@@ -26,7 +26,7 @@ async function rateLimitedFetch(secUrl: string) {
       },
     });
   } finally {
-    setTimeout(() => release(), SEC_MIN_REQUEST_INTERVAL_MS);
+    setTimeout(() => { release(); }, SEC_MIN_REQUEST_INTERVAL_MS);
   }
 }
 
@@ -39,7 +39,7 @@ export async function findUnique(dataType: RequestType, cik: string) {
     const fileData = await readFile(filePath, 'utf-8');
     console.log(`Loaded local ${dataType} data for CIK ${cik}`);
     return fileData;
-  } catch (readErr) {
+  } catch {
     console.log(`Local file missing for ${cik}, fetching from SEC API...`);
     const secUrl = `https://data.sec.gov/api/${dataType}/${fileName}`;
 
@@ -50,8 +50,8 @@ export async function findUnique(dataType: RequestType, cik: string) {
       await writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
       console.log(`Fetched and cached ${dataType} data for CIK ${cik}`);
       return data;
-    } catch (apiErr: any) {
-      throw new Error(`SEC API request failed: ${apiErr.message}`);
+    } catch (error: any) {
+      throw new Error(`SEC API request failed: ${error.message}`);
     }
   }
 }

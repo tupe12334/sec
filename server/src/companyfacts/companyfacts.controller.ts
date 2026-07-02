@@ -1,8 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
+import { CompanyfactsDto } from './models/companyfacts.model';
 import { findUnique } from 'src/common/Data.service';
 import { CIKSchema } from 'src/types';
-import { CompanyfactsDto } from './models/companyfacts.model';
 
 @Controller('companyfacts')
 export class CompanyfactsController {

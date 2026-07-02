@@ -1,9 +1,9 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import axios from 'axios';
-import { mkdir, readFile, writeFile } from 'fs/promises';
 import { findUnique } from './Data.service';
 
 jest.mock('axios');
-jest.mock('fs/promises');
+jest.mock('node:fs/promises');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedReadFile = readFile as jest.MockedFunction<typeof readFile>;
@@ -16,16 +16,16 @@ describe('findUnique', () => {
     mockedReadFile.mockRejectedValue(new Error('ENOENT'));
     mockedWriteFile.mockResolvedValue(undefined);
     mockedMkdir.mockResolvedValue(undefined);
-    mockedAxios.get.mockImplementation(() =>
-      Promise.resolve({ data: { ok: true } }),
+    mockedAxios.get.mockImplementation(async () =>
+      ({ data: { ok: true } }),
     );
   });
 
   it('spaces out concurrent SEC API requests to respect the rate limit', async () => {
     const callTimestamps: number[] = [];
-    mockedAxios.get.mockImplementation(() => {
+    mockedAxios.get.mockImplementation(async () => {
       callTimestamps.push(Date.now());
-      return Promise.resolve({ data: { ok: true } });
+      return { data: { ok: true } };
     });
 
     await Promise.all([
@@ -36,8 +36,8 @@ describe('findUnique', () => {
 
     expect(mockedAxios.get).toHaveBeenCalledTimes(3);
     expect(callTimestamps).toHaveLength(3);
-    for (let i = 1; i < callTimestamps.length; i++) {
-      expect(callTimestamps[i] - callTimestamps[i - 1]).toBeGreaterThanOrEqual(
+    for (let index = 1; index < callTimestamps.length; index++) {
+      expect(callTimestamps[index] - callTimestamps[index - 1]).toBeGreaterThanOrEqual(
         140,
       );
     }

@@ -25,6 +25,7 @@
     "@nestjs/schedule": "^5.0.1",
     "@nestjs/swagger": "^11.0.4",
     "axios": "^1.7.9",
+    "bottleneck": "^2.19.5",
     "nestjs-paginate": "^11.0.1",
     "nestjs-zod": "^4.3.1",
     "reflect-metadata": "^0.2.0",
